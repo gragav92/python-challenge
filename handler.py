@@ -72,6 +72,24 @@ def main(event, context=None):  # pylint: disable=unused-argument
 
     logger.info('Service recieved loans: %s', json.dumps(loans, indent=2))
 
+    """ **[FTR] CC-02**
+        Check the loans list to verify if borrower and coborrower of an
+        application share the same address and update the application dict
+        with the shared_address boolean field.
+
+        Added the corresponding rule in resources/borrowers.json
+    """
+    for loan in loans:
+        for application in loan['applications']:
+            shared = True
+            for key, value in application['borrower']['mailingAddress'].items():
+                if value != application['coborrower']['mailingAddress'].get(key):
+                    shared = False
+                    break
+        application['shared_address'] = shared
+
+    logger.info('Service updated loans with shared_address: %s', json.dumps(loans, indent=2))
+
     # Generate Manifests
     reports = []
     for loan in loans:

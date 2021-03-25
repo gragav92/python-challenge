@@ -8,6 +8,10 @@
         "target": "$.reports[?(@.title == 'Borrowers Report')].borrowers[0].last_name"
     },
     {
+        "source": "$.applications[0].shared_address",
+        "target": "$.reports[?(@.title == 'Borrowers Report')].shared_address"
+    },
+    {
         "source": "$.applications[0].coborrower.firstName",
         "target": "$.reports[?(@.title == 'Borrowers Report')].borrowers[1].first_name"
     },

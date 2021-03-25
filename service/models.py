@@ -209,7 +209,7 @@ class JSONFactory:
 
             key = keys.pop(0)
             index = _get_index(key)
-
+            
             if index:
                 key, idx = index
                 if not key in reference:
@@ -342,8 +342,8 @@ class JSONFactory:
             return reference
 
         path_keys = cls.parse_path(path)
-        record = _iter(path_keys, record)
-
+        record = _iter(path_keys, record)     
+        
         return record
 
     # Instance attributes
@@ -372,5 +372,14 @@ class JSONFactory:
 
         for path, value in queries:
             self.insert_query(path, value, record)
-
+        
+        """ **[FTR] CC-01**
+            Once data from the path and value is updated into the record,
+            check and remove duplicate address in the Residences report
+        """
+        for residence in record['reports']:
+            if residence['title']=='Residences Report':
+                residence['residences']=[dict(temp_tuple) for temp_tuple in 
+                                         {tuple(temp_dict.items()) for temp_dict in 
+                                            residence['residences']}] 
         return record

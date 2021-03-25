@@ -5,7 +5,7 @@
       "residences": [
         {
           "street": "123 EXAMPLE PKWY.",
-          "city": "FLOWER MOUND",
+          "city": "FLOWEsdfR MOUND",
           "state": "TX",
           "zip": "75028"
         },
@@ -28,7 +28,8 @@
           "first_name": "JOHN",
           "last_name": "DOE"
         }
-      ]
+      ],
+      "shared_address": false
     }
   ]
 }
